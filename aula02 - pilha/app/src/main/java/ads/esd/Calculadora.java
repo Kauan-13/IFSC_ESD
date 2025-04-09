@@ -3,8 +3,10 @@ package ads.esd;
 import java.util.Stack;
 
 public class Calculadora {
-    Stack<Double> stack;
-    int quantidadeElementos;
+    private Stack<Double> stack;
+    private int quantidadeElementos;
+    private double x1;
+    private double x2;
 
     Calculadora(){
         stack = new Stack<>();
@@ -26,18 +28,21 @@ public class Calculadora {
             if (s.equals("+") || s.equals("-") || s.equals("*") || s.equals("/")) {
                 faz_operacao(s);
             } else {
-                stack.push(Double.parseDouble(s));
+                adicionaNumero(Double.parseDouble(s));
             }
         }
-        return stack.pop();
+        return resultado();
     }
 
     public void faz_operacao(String operador) {
+        x2 = stack.pop();
+        x1 = stack.pop();
+
         switch (operador) {
-            case "+" -> stack.push(stack.pop() + stack.pop());
-            case "-" -> stack.push(stack.pop() - stack.pop());
-            case "*" -> stack.push(stack.pop() * stack.pop());
-            case "/" -> stack.push(stack.pop() / stack.pop());
+            case "+" -> stack.push(x1 + x2);
+            case "-" -> stack.push(x1 - x2);
+            case "*" -> stack.push(x1 * x2);
+            case "/" -> stack.push(x1 / x2);
         }
     }
 
